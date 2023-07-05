@@ -1,0 +1,134 @@
+<div class="row">
+    {{#each notes}}
+    <div class="col-md-3">
+        <div class="card">
+
+            <div class="card-body">
+
+                <h4 class="card-title d-flex justify-content-between align-items-center">{{title}}<a
+                        href="/kiosco/edit/{{_id}}"><i class="fa fa-edit"></i></a>
+                </h4>
+                <p>{{description}}</p>
+                <form action="/kiosco/delete/{{_id}}?_method=DELETE" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="btn btn-danger btn-block btn-sm" type="submit">
+                        Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <a href="/kiosco/add" class="btn btn-success btn-block">Crear</a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container-fluid">
+
+        <div class="row clearfix">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="header">
+                        <h2>Kioscos turno</h2>
+                        <ul class="header-dropdown dropdown dropdown-animated scale-left">
+                            <li> <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="pulse"><i
+                                        class="icon-refresh"></i></a></li>
+                            <li><a href="javascript:void(0);" class="full-screen"><i
+                                        class="icon-size-fullscreen"></i></a></li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another Action</a></li>
+                                    <li><a href="javascript:void(0);">Something else</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive check-all-parent">
+                            <table class="table table-hover m-b-0 c_list">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <label class="fancy-checkbox">
+                                                <input class="check-all" type="checkbox" name="checkbox">
+                                                <span></span>
+                                            </label>
+                                        </th>
+                                        <th>Nombre</th>
+                                        <th>Phone</th>
+                                        <th>Descripción</th>
+                                        <th>Accción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50px;">
+                                            <label class="fancy-checkbox">
+                                                <input class="checkbox-tick" type="checkbox" name="checkbox">
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <img src="../assets/images/xs/avatar1.jpg" class="rounded-circle avatar"
+                                                alt="">
+                                            <p class="c_name">{{title}}<i class="fa fa-edit"></i></a><span
+                                                    class="badge badge-default m-l-10 hidden-sm-down">Family</span></p>
+                                        </td>
+                                        <td>
+                                            <span class="phone"><i
+                                                    class="zmdi zmdi-phone m-r-10"></i>264-625-2583</span>
+                                        </td>
+                                        <td>
+                                            <address><i class="zmdi zmdi-pin"></i>
+                                                {{description}}
+                                            </address>
+                                        </td>
+                                        <td>
+                                            <a href="/kiosco/edit/{{_id}}"><button type="button" class="btn btn-info"
+                                                    title="Edit"><i class="fa fa-edit"></i></button></a>
+                                            <form action="/kiosco/delete/{{_id}}?_method=DELETE" method="post">
+                                                <input type="hidden" name="_method" value="DELETE">
+
+                                                <button data-type="confirm" class="btn btn-danger js-sweetalert"
+                                                    title="Delete" type="submit"><i class="fa fa-trash-o"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{else}}
+    <div class="card mx-auto">
+        <div class="card-body">
+            <h1>Bienvenido {{user.name}}</h1>
+            <p class="lead">No hay Kioscos aun</p>
+            <a href="/kiosco/add" class="btn btn-success btn-block">Crear</a>
+        </div>
+    </div>
+
+
+
+
+
+
+    {{/each}}
+</div>

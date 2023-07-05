@@ -1,0 +1,7 @@
+.Monitor_off{
+    background-image: url("/../assets/images/tvpanelUI/Screen_off.png");
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+

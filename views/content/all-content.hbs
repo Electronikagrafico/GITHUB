@@ -1,0 +1,1098 @@
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="../assets/vendor/sweetalert/sweetalert.min.js"></script>
+<script src="../assets/js/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../assets/js/sweetalert/scriptSweetAlert2.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+
+<script src="../assets/js/pages/ui/dialogs.js"></script>
+
+
+
+
+<div class="container-fluid">
+
+    <div class="row clearfix">
+
+
+        <div class="card">
+            <div class="header">
+                <h2>Contenido</h2>
+
+                <ul class="header-dropdown dropdown dropdown-animated scale-left">
+
+                    <li> <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="pulse"><i
+                                class="icon-refresh"></i></a></li>
+                    <li><a href="javascript:void(0);" class="full-screen"><i class="icon-size-fullscreen"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false"></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0);">Action</a></li>
+                            <li><a href="javascript:void(0);">Another Action</a></li>
+                            <li><a href="javascript:void(0);">Something else</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+
+                <div class="table-responsive check-all-parent">
+                    <table class="table table-hover m-b-0 c_list">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label class="fancy-checkbox">
+                                        <input class="check-all" type="checkbox" name="checkbox">
+                                        <span></span>
+                                    </label>
+                                </th>
+                                <th>Nombre</th>
+                                <th>Detalles</th>
+                                <th>Fecha</th>
+                                <th>Accción</th>
+                            </tr>
+                        </thead>
+
+
+                        <div class="table-responsive check-all-parent" style="overflow: initial !important;">
+                            <div class="container-fluid">
+                                <div class="body" style="padding-bottom: 0px;">
+                                    <div class="chat-header clearfix">
+                                        <div class="row clearfix">
+                                            <div class="col-lg-6 hidden-sm text-left">
+
+
+
+                                                <button type="button" class="btn btn-outline-secondary" title="Edit"
+                                                    onclick="editar()">
+                                                    <i class="fa fa-edit"></i>Editar
+                                                </button>
+
+
+
+                                                <button onclick="eliminarContenido()" class="btn btn-outline-secondary"
+                                                    id="Delete_multiple" type="button">
+                                                    <i class="fa fa-trash-o"></i>Borrar
+                                                </button>
+
+
+                                                <!-- Botón para abrir el modal -->
+                                                <button class="btn btn-outline-secondary" data-toggle="modal"
+                                                    data-target="#uploadModal"><i class="icon-plus"></i>
+                                                    Añadir Contenido</button>
+
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    data-toggle="modal" data-target="#crearGrupoModal">
+                                                    <i class="icon-plus"></i> Crear grupo
+                                                </button>
+
+
+
+
+
+
+                                            </div>
+
+
+                                            <div class="col-lg-6 hidden-sm text-left">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" placeholder="Buscar...">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text"><i
+                                                                class="icon-magnifier"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!-- Aquí almacenamos nuestros datos de árbol en un atributo data -->
+                                    <div id="treeContainer" data-tree='{{{json treeData}}}'> </div>
+
+                                    <div class="col-lg-4 col-md-6">
+                                        <div id="grupos">
+
+                                        </div>
+                                    </div>
+                                    <hr>
+
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+                </div>
+
+
+                <!-- MODAL PARA CREAR GRUPOS -->
+                <tbody>
+                    <!-- Modal Carga de archivos -->
+                    <div class="modal fade" id="crearGrupoModal" tabindex="-1" role="dialog"
+                        aria-labelledby="uploadModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content" style="box-shadow: 0 10px 13px #282828;padding: 1%;">
+                                <div class="modal-header">
+                                    <div class="popup_header">
+                                        <h1>Crear carpetas</h1>
+                                    </div>
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="margin-right: 13px;">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form id="groupForm">
+                                        <div class="form-group">
+                                            <label for="groupName">Nombre de la carpeta:</label>
+                                            <input type="text" id="groupName" class="form-control"
+                                                placeholder="Nombre del grupo">
+                                        </div>
+                                        <input type="hidden" id="groupId">
+                                    </form>
+
+
+
+                                    <!-- Lista para mostrar los nombres de los grupos  Creados -->
+
+                                    <div class="ReactTable  -striped -highlight" style="height: 201px;"
+                                        id="gruposlista">
+                                        <div class="rt-table" role="grid">
+                                            <div class="rt-thead -header" style="min-width: 484px;">
+                                                <div class="rt-tr" role="row">
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 200 0 auto; width: 200px; max-width: 200px;">
+                                                        <div class="rt-resizable-header-content">Nombre de la
+                                                            carpeta
+                                                        </div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 99 0 auto; width: 99px; max-width: 99px;">
+                                                        <div class="rt-resizable-header-content">Grupo</div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 100 0 auto; width: 100px; max-width: 100px;">
+                                                        <div class="rt-resizable-header-content">Categoría
+                                                        </div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 80 0 auto; width: 80px; max-width: 80px;">
+                                                        <div class="rt-resizable-header-content">Tamaño del
+                                                            archivo
+                                                        </div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 50 0 auto; width: 50px;">
+                                                        <div class="rt-resizable-header-content">Estado
+                                                        </div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="rt-tbody" style="min-width: 484px;">
+
+
+                                                <ul class="list-group" id="file-list_group"></ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-success" id="saveGroup">Guardar
+                                        grupo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tbody>
+
+                <!-- MODAL PARA AGREGAR CONTENIDO -->
+                <tbody>
+                    <!-- Modal Carga de archivos -->
+                    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog"
+                        aria-labelledby="uploadModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content" style="box-shadow: 0 10px 13px #282828;padding: 1%;">
+                                <div class="modal-header">
+                                    <div class="popup_header">
+                                        <h1>Cargar contenido</h1>
+                                    </div>
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="margin-right: 13px;">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <!-- Barra de progreso -->
+                                    <div class="popup_contents">
+                                        <div class="uploading mb19" style="margin: 0px;"><span class="file_total"><span
+                                                    class="completeFile">0</span>/<span class="totalFile">0</span>
+                                                Archivo</span>
+
+
+
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 0%;"
+                                                    id="progress-bar"></div>
+                                                <div class="filler">
+                                                    <span style="left: 0%;">0<span>%</span></span>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Botones  -->
+                                    <div class="popup_btn_wrap clearfix noline">
+                                        <div class="row clearfix">
+                                            <div class="col-lg-12 hidden-sm text-right" style="margin-bottom: 2%;">
+                                                <a id="add-content-button">
+                                                    <button class="btn btn-outline-secondary">
+                                                        <i class="icon-plus"></i>
+                                                        Añadir Contenido
+                                                    </button>
+                                                </a>
+
+                                                <button type="button" id="upload-button"
+                                                    class="btn btn-outline-secondary" title="Edit" onclick="editar()">
+                                                    <i class="fa fa-edit"></i>Subir archivos
+                                                </button>
+
+                                                <button id="delete-button" class="btn btn-outline-secondary"
+                                                    title="Delete" type="button">
+                                                    <i class="fa fa-trash-o"></i>Borrar
+                                                </button>
+
+                                                <button type="button" class="btn btn-outline-secondary" title="Edit"
+                                                    data-dismiss="modal">
+                                                    <i class="fa fa-edit"></i>Cancelar
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Formulario para seleccionar los archivos -->
+                                    <form id="file-form">
+                                        <input type="file" name="files" id="file-input" multiple style="display: none;">
+                                    </form>
+
+                                    <!-- Lista para mostrar los nombres de los archivos seleccionados -->
+
+                                    <div class="ReactTable -striped -highlight" style="height: 201px;">
+                                        <div class="rt-table" role="grid">
+                                            <div class="rt-thead -header" style="min-width: 484px;">
+                                                <div class="rt-tr" role="row">
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 155 0 auto; width: 155px; max-width: 155px;">
+                                                        <div class="rt-resizable-header-content">Nombre del
+                                                            archivo
+                                                        </div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 99 0 auto; width: 99px; max-width: 99px;">
+                                                        <div class="rt-resizable-header-content">Grupo</div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 100 0 auto; width: 100px; max-width: 100px;">
+                                                        <div class="rt-resizable-header-content">Categoría
+                                                        </div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 80 0 auto; width: 80px; max-width: 80px;">
+                                                        <div class="rt-resizable-header-content">Tamaño del
+                                                            archivo
+                                                        </div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                    <div class="rt-th rt-resizable-header -cursor-pointer"
+                                                        role="columnheader" tabindex="-1"
+                                                        style="flex: 50 0 auto; width: 50px;">
+                                                        <div class="rt-resizable-header-content">Estado
+                                                        </div>
+                                                        <div class="rt-resizer"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="rt-tbody" style="min-width: 484px;">
+
+
+                                                <ul class="list-group" id="file-list"></ul>
+                                            </div>
+                                        </div>
+                                        <div class="rt-noData">No hay datos</div>
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </tbody>
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        {{#if contents}}
+        {{#each contents}}
+        <tr>
+            <td style="width: 50px;">
+                <label class="fancy-checkbox">
+                    <input class="checkbox-tick individual-check" type="checkbox" name="checkbox" value="{{this._id}}"
+                        data-id="{{this._id}}">
+                    <span></span>
+                </label>
+            </td>
+            <td>
+                <img style="width: 10%;" src="{{this.folder}}/{{this.thumbnail}}" alt="">
+                <p class="c_name nombre-archivo">{{this.filename}}</p>
+            </td>
+            <td>
+                <span class="phone">{{this.tipo}}<br>{{this.tamaño}}mb</span>
+            </td>
+            <td>
+                <address><i class="zmdi zmdi-pin"></i>{{moment this.date format='YYYY-MM-DD HH:mm'}}
+                </address>
+            </td>
+            <td>
+                <button data-id="{{this._id}}" onclick="eliminarContenidoUnico('{{this._id}}')"
+                    class="btn btn-danger delete-button" title="Delete"><i class="fa fa-trash-o"></i></button>
+
+            </td>
+
+        </tr>
+        {{/each}}
+        {{else}}
+        <div class="card mx-auto">
+            <div class="card-body">
+                <h1>Bienvenido</h1>
+                <p class="lead">No hay contenido creados</p>
+            </div>
+        </div>
+        {{/if}}
+
+        </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<script>
+
+    $(function () {
+        $('.selectpicker').selectpicker();
+    });
+    $('#uploadModal').on('show.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+    });
+
+
+    //Filtro desde el input de buscar 
+    $(document).ready(function () {
+        $('.form-control').on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $('tr').each(function () {
+                if ($(this).find('.nombre-archivo').text().toLowerCase().indexOf(value) > -1) {
+                    $(this).css('display', '');
+                } else {
+                    $(this).css('display', 'none');
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $.get('/content/get-groups', function (groups) {
+            const tableBody = $('#gruposlista .rt-tbody');
+            groups.forEach(group => {
+                const row = `
+                <div class="rt-tr-group">
+                    <div class="rt-tr -odd" role="rowgroup">
+                        <div class="rt-td groupName" role="gridcell" style="flex: 155 0 auto; width: 200px; max-width: 200px;">
+                            ${group.groupName}
+                     </div>
+                    <div class="rt-td" role="gridcell" style="flex: 99 0 auto; width: 99px; max-width: 99px;">default</div>
+                    <div class="rt-td" role="gridcell" style="flex: 100 0 auto; width: 100px; max-width: 100px;">NONE</div>
+                    <div class="rt-td" role="gridcell" style="flex: 99 0 auto; width: 99px; max-width: 99px;">default</div>
+                    <div class="rt-td" role="gridcell" style="flex: 100 0 auto; width: 100px; max-width: 100px;">               <button style="width: 40px; type="button"   class="btn btn-info edit-group-btn" title="Edit" data-id="${group._id}" ><i class="fa fa-edit" ></i></button>
+                     <button  style="width: 40px;display: none;"   class="save-group-btn btn btn-success" data-id="${group._id}" ><i class="fa fa-save" ></i></button>
+     </div>
+    
+                
+                </div>
+            `;
+                tableBody.append(row);
+            });
+
+            $('.edit-group-btn').click(function () {
+                const groupId = $(this).data('id');
+                const groupNameCell = $(this).closest('.rt-tr-group').find('.groupName');
+                const groupName = groupNameCell.text();
+                groupNameCell.html(`<input type="text" value="${groupName}" />`);
+
+                $(this).hide();
+                $(this).siblings('.save-group-btn').show();
+            });
+
+            $('.save-group-btn').click(function () {
+                const groupId = $(this).data('id');
+                const groupNameCell = $(this).closest('.rt-tr-group').find('.groupName');
+                const newName = groupNameCell.find('input').val();
+
+                $.ajax({
+                    url: '/content/edit-group/' + groupId,
+                    type: 'PUT',
+                    data: { groupName: newName },
+                    success: function (result) {
+                        groupNameCell.text(newName);
+
+                        // También es una buena idea verificar si la petición PUT fue exitosa antes de actualizar la interfaz
+                        alert("El nombre del grupo fue actualizado con éxito!");
+                    },
+                    error: function (error) {
+                        // Maneja cualquier error que pueda ocurrir
+                        alert("Hubo un error al actualizar el nombre del grupo!");
+                        alert(error);
+
+                    }
+                });
+
+                $(this).hide();
+                $(this).siblings('.edit-group-btn').show();
+            });
+        });
+    });
+    $('#saveGroup').click(function () {
+        var groupName = $('#groupName').val();
+        var groupId = $('#groupId').val();
+
+        var groupData = {
+            groupName: groupName,
+            // otros campos según sea necesario
+        };
+
+        var url, method;
+        if (groupId) {  // Si groupId existe, estamos editando un grupo existente
+            url = '/content/edit-group/' + groupId;
+            method = 'PUT';
+        } else {  // Si no, estamos creando un nuevo grupo
+            url = '/content/create-group';
+            method = 'POST';
+        }
+
+        $.ajax({
+            url: url,
+            type: method,
+            data: JSON.stringify(groupData),
+            contentType: 'application/json',
+            success: function () {
+                location.reload();
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $(document).ready(function () {
+        $('input[type="checkbox"]').prop('checked', false);
+    });
+
+
+    $('.check-all').on('change', function () {
+        $('.individual-check').prop('checked', this.checked);
+    });
+
+
+
+    let selectedIds = [];
+    $('input[name="checkbox"]:checked').each(function () {
+        selectedIds.push($(this).val());
+    });
+
+
+    $('#delete-selected-button').on('click', function () {
+        // Haz una lista de los IDs de los elementos seleccionados
+        const selectedIds = $('.individual-check:checked').map(function () {
+            return $(this).data('id');
+        }).get();
+
+        // Realiza la solicitud DELETE para cada ID
+        selectedIds.forEach(id => {
+            $.ajax({
+                url: '/content/delete/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    // Elimina el elemento del DOM o actualiza la lista
+                },
+                error: function (error) {
+                    // Maneja el error
+                }
+            });
+        });
+    });
+
+    $('#delete-button').on('click', function () {
+        // Loop backwards since we're modifying the array in place
+        for (let i = selectedFiles.length - 1; i >= 0; i--) {
+            if ($(`#file-${i}-checkbox`).is(':checked')) {
+                selectedFiles.splice(i, 1);
+            }
+        }
+
+        // Refresh the file input
+        $('#file-input').val('');
+
+        // Regenerate the file list
+        const fileList = $('#file-list');
+        const Nodatos = $('.rt-noData');
+        fileList.empty();
+        selectedFiles.forEach((file, index) => {
+            // Generate the file list entry, as before
+            fileList.append(`
+            <div class="rt-tr-group content_tr_group" role="rowgroup" style="background: white;">
+                <div class="rt-tr -odd" role="row">
+                    <div class="rt-td" role="gridcell" style="flex: 155 0 auto; width: 155px; max-width: 155px;">${file.name}</div>
+                    <div class="rt-td" role="gridcell" style="flex: 99 0 auto; width: 99px; max-width: 99px;">default</div>
+                    <div class="rt-td" role="gridcell" style="flex: 100 0 auto; width: 100px; max-width: 100px;">NONE</div>
+                    <div class="rt-td" role="gridcell" style="flex: 80 0 auto; width: 80px; max-width: 80px;">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                    <div class="rt-td" role="gridcell" style="flex: 50 0 auto; width: 50px;">
+                        <div style="display: flex; align-items: center;">
+                            <div class="float_l">
+                                <div class="progress_bar" style="width: 200px; height: 5px; background: rgb(232, 232, 232);">
+                                    <div id="file-${index}-filler" class="filler" style="width: 0%; background: rgb(75, 228, 140);"></div>
+                                </div>
+                            </div>
+                            <div id="file-${index}-percent" class="float_r ml20">0%</div>
+                        </div>
+                    </div>
+                    <div class="rt-td" role="gridcell" style="flex: 5 0 auto;">
+                        <input type="checkbox" id="file-${index}-checkbox" />
+                    </div>
+                </div>
+            </div>
+        `);
+        });
+        if (selectedFiles.length == 0) {
+            Nodatos.css('display', 'block');
+        }
+    });
+    let selectedFiles = [];
+
+    $('#file-input').on('change', function () {
+        const newFiles = Array.from(this.files);
+        if (newFiles.length + selectedFiles.length > 12) {
+            alert('No puedes seleccionar más de 12 archivos en total.');
+        } else {
+            selectedFiles = [...selectedFiles, ...newFiles];
+
+            let totalSize = 0;
+            let filesToRemove = [];
+            for (let i = 0; i < selectedFiles.length; i++) {
+                let file = selectedFiles[i];
+                totalSize += file.size / 1024 / 1024; // Convertir a MB
+                const fileType = file.type;
+                const validFileTypes = ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4', 'video/quicktime'];
+                let fileSizeMB = file.size / 1024 / 1024; // Convertir a MB
+                console.log(fileSizeMB);
+
+                if (fileSizeMB <= 0.2) {
+                    alert('El archivo está vacío o es inválido.');
+                    filesToRemove.push(i); // Marca este archivo para ser eliminado
+                }
+                if (!validFileTypes.includes(fileType)) {
+                    alert('Solo se permiten archivos .jpg, .jpeg, .png, .mp4, .mov');
+                    filesToRemove.push(i); // Marca este archivo para ser eliminado
+                }
+
+            }
+
+            if (totalSize > 750) { // 750MB
+                alert('El tamaño total de los archivos no puede superar 750MB');
+                selectedFiles = []; // Limpia la lista de archivos
+                this.value = ''; // Limpia la selección de archivos
+            } else {
+                // Elimina archivos inválidos de selectedFiles y del DOM
+                for (let i = filesToRemove.length - 1; i >= 0; i--) {
+                    selectedFiles.splice(filesToRemove[i], 1);
+                    $(`.content_tr_group:eq(${filesToRemove[i]})`).remove();
+                }
+                const fileList = $('#file-list');
+                const Nodatos = $('.rt-noData');
+                fileList.empty();
+                selectedFiles.forEach((file, index) => {  // Aquí es donde se hizo la corrección
+                    fileList.append(`
+                <div class="rt-tr-group content_tr_group" role="rowgroup" style="background: white;">
+                    <div class="rt-tr -odd" role="row">
+                        <div class="rt-td" role="gridcell" style="flex: 155 0 auto; width: 155px; max-width: 144px;">${file.name}</div>
+                        <div class="rt-td" role="gridcell" style="flex: 99 0 auto; width: 99px; max-width: 99px;">default</div>
+                        <div class="rt-td" role="gridcell" style="flex: 100 0 auto; width: 100px; max-width: 100px;">NONE</div>
+                        <div class="rt-td" role="gridcell" style="flex: 80 0 auto; width: 80px; max-width: 80px;">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                        <div class="rt-td" role="gridcell" style="flex: 50 0 auto; width: 50px;">
+                            <div style="display: flex; align-items: center;">
+                                <div class="float_l">
+                                    <div class="progress_bar" style="width: 200px; height: 5px; background: rgb(232, 232, 232);">
+                                        <div id="file-${index}-filler" class="filler" style="width: 0%; background: rgb(75, 228, 140);"></div>
+                                    </div>
+                                    
+                                </div>
+                                <div id="file-${index}-percent" class="float_r ml20">0%</div>
+                            </div>
+                        </div>
+                         <div class="rt-td" role="gridcell" style="flex: 5 0 auto; width: 20px;">
+                            <input type="checkbox" id="file-${index}-checkbox" />
+                        </div>
+                    </div>
+                </div>
+                `);
+                    Nodatos.css('display', 'none');
+                });
+            }
+        }
+    });
+    let totalLoaded = 0;
+    let totalSize = 0;
+    const globalProgressBar = $('#progress-bar');
+    const globalProgressText = $('.filler span');
+
+    function uploadFiles(files, index = 0) {
+        if (index >= files.length) {
+            return; // Todos los archivos se han subido
+        }
+
+        const file = files[index];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Selecciona la barra de progreso y el texto de progreso para este archivo específico
+        const progressBar = $(`#file-${index}-filler`);
+        const progressText = $(`#file-${index}-percent`);
+
+        $.ajax({
+            url: '/content',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            xhr: function () {
+                const xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener('progress', function (evt) {
+                    if (evt.lengthComputable) {
+                        let percentComplete = (evt.loaded / evt.total * 100).toFixed(2);
+                        progressBar.css('width', `${percentComplete}%`);
+                        progressText.html(`${percentComplete}%`);
+
+                        // Actualiza el progreso total y la barra de progreso global
+                        totalLoaded += evt.loaded;
+                        // No dejes que totalLoaded exceda totalSize
+                        totalLoaded = Math.min(totalLoaded, totalSize);
+
+                        let totalPercentComplete = (totalLoaded / totalSize * 100).toFixed(2);
+                        globalProgressBar.css('width', `${totalPercentComplete}%`);
+                        globalProgressText.html(`${totalPercentComplete}%`);
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }
+                            , 3000);
+                    }
+                }, false);
+
+                return xhr;
+            },
+            success: function () {
+                $(`#file-${index}`).remove();
+                // Sube el siguiente archivo
+                uploadFiles(files, index + 1);
+            },
+            error: function () {
+                alert('Error al cargar el archivo');
+            }
+        });
+    }
+
+    $('#upload-button').on('click', function () {
+        // Reinicia el total cargado y el tamaño total
+        totalLoaded = 0;
+        totalSize = 0;
+
+        const files = selectedFiles; // Esto es lo que cambiamos
+
+        // Calcula el tamaño total
+        files.forEach(file => {
+            totalSize += file.size;
+        });
+
+        // Selecciona la barra de progreso global y el texto de progreso global
+
+        globalProgressBar.css('width', '0%'); // Reinicia la barra de progreso global
+        globalProgressText.html('0%'); // Reinicia el texto de progreso global
+
+        uploadFiles(files);
+    });
+
+    $('#add-content-button').on('click', function () {
+        $('#file-input').trigger('click');
+    });
+
+</script>
+<style>
+    .modal-dialog {
+        max-width: 45% !important;
+        margin: 0 auto;
+
+    }
+
+    .popup_header h1 {
+        margin: 0;
+        font-size: 18px;
+        color: #2b2b2b;
+        padding-left: 25px;
+        text-overflow: ellipsis;
+        width: 500px;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        font-weight: 400;
+    }
+
+    .upload_content_popup .popup_contents {
+        padding: 0 25px;
+        padding-top: 0px;
+    }
+
+    .mb19 {
+        margin-bottom: 19px !important;
+    }
+
+    .uploading .file_total {
+        width: 100%;
+        font-size: 13px;
+        color: #393939;
+        display: inline-block;
+        text-align: right;
+        margin-bottom: 7px;
+    }
+
+    .filler {
+        height: 100%;
+        text-align: center;
+        -webkit-transition: width .2s ease-in;
+        transition: width .2s ease-in;
+        z-index: 1;
+    }
+
+    .upload_content_popup .list_wrap_empty {
+        text-align: center;
+    }
+
+    .progress-bar {
+        transition: width 2s ease-in-out;
+        background-color: rgb(75, 228, 140);
+        /* Ajusta la duración y la función de tiempo según tus necesidades */
+    }
+
+    .detail_view,
+    .sub_tabwrap {
+        position: relative;
+    }
+
+    .detail_view {
+        padding-top: 15px !important;
+    }
+
+    .pb25 {
+        padding-bottom: 25px !important;
+    }
+
+    .ml25 {
+        margin-left: 25px !important;
+    }
+
+    .mr25 {
+        margin-right: 25px !important;
+    }
+
+    .rt-table {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .ReactTable .rt-resizer {
+        display: inline-block;
+        position: absolute;
+        width: 36px;
+        top: 0;
+        bottom: 0;
+        right: -18px;
+        cursor: col-resize;
+        z-index: 10;
+    }
+
+    .ReactTable .rt-td,
+    .ReactTable .rt-th {
+        white-space: nowrap;
+    }
+
+    .ReactTable .rt-tr {
+        flex: 1 0 auto;
+        display: inline-flex;
+    }
+
+    .ReactTable * {
+        box-sizing: border-box;
+    }
+
+    .ReactTable {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    .ReactTable .rt-tbody {
+        flex: 99999 1 auto;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    .ReactTable .rt-table .rt-tbody {
+        min-width: -webkit-fill-available !important;
+        min-width: fill-available !important;
+        min-width: -moz-available !important;
+        width: -webkit-max-content;
+        width: -moz-max-content;
+        width: max-content;
+    }
+
+    .ReactTable .rt-thead .rt-resizable-header-content {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: Tahoma, Arial, Dotum, sans-serif;
+        color: #818181;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .ReactTable .rt-thead.-header {
+        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .15);
+    }
+
+    .ReactTable .rt-table {
+        -webkit-box-flex: 1;
+        -ms-flex: auto 1;
+        flex: auto 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        width: 100%;
+        border-collapse: collapse;
+
+    }
+
+    .float_r {
+        float: right !important;
+    }
+
+    .ReactTable .rt-thead {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .ReactTable .rt-thead .rt-td.-cursor-pointer,
+    .ReactTable .rt-thead .rt-th.-cursor-pointer {
+        cursor: pointer;
+    }
+
+    .ReactTable .rt-thead .rt-resizable-header {
+        overflow: visible;
+    }
+
+    .ReactTable .rt-thead .rt-td,
+    .ReactTable .rt-thead .rt-th {
+        vertical-align: middle;
+        padding: 7px 10px;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAARCAYAAAAcw8YSAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF6WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTktMDItMTNUMTg6MjA6MTgrMDk6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE5LTAyLTE0VDE1OjI4OjQ3KzA5OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE5LTAyLTE0VDE1OjI4OjQ3KzA5OjAwIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmRiMmQ3ODRmLTZjNWQtMDc0Zi1hZTcxLTljNzZkOGQ4Njk4OCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4NTk4QUUyNzk0ODgxMUU4ODFFMUU4QjdBMjY4MzQwMyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjg1OThBRTI3OTQ4ODExRTg4MUUxRThCN0EyNjgzNDAzIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ODU5OEFFMjQ5NDg4MTFFODgxRTFFOEI3QTI2ODM0MDMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6ODU5OEFFMjU5NDg4MTFFODgxRTFFOEI3QTI2ODM0MDMiLz4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6ZGIyZDc4NGYtNmM1ZC0wNzRmLWFlNzEtOWM3NmQ4ZDg2OTg4IiBzdEV2dDp3aGVuPSIyMDE5LTAyLTE0VDE1OjI4OjQ3KzA5OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+0Dw4NAAAABlJREFUCJlj2LZt+3+G////MzBt376DSiwAtUQ0Q2BUVWsAAAAASUVORK5CYII=) no-repeat 100%;
+        position: relative;
+        -webkit-transition: box-shadow .3s cubic-bezier(.175, .885, .32, 1.275);
+        transition: box-shadow .3s cubic-bezier(.175, .885, .32, 1.275);
+        box-shadow: inset 0 0 0 0 transparent;
+    }
+
+    .ReactTable .rt-thead .rt-tr {
+        text-align: left;
+        border: 0;
+        border-bottom: 1px solid #d2d2d3;
+        background: #eeeeef;
+        position: relative;
+    }
+
+    .ReactTable .-loading,
+    .ReactTable .rt-noData {
+        display: block;
+        position: absolute;
+        background: hsla(0, 0%, 100%, .8);
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
+        pointer-events: none;
+    }
+
+    .ReactTable .rt-noData {
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        padding: 20px;
+        color: rgba(0, 0, 0, .5);
+    }
+
+    .ReactTable .rt-tbody .rt-tr-group {
+        padding: 0 10px;
+        text-align: left;
+        line-height: 20px;
+    }
+
+    .ReactTable .rt-tbody .rt-td {
+        border-right: 1px solid rgba(0, 0, 0, .02);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .ReactTable .rt-td,
+    .ReactTable .rt-th {
+        flex: 1 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding: 7px 5px;
+        overflow: hidden;
+        -webkit-transition: .3s ease;
+        transition: .3s ease;
+        transition-property: all;
+        -webkit-transition-property: width, min-width, padding, opacity;
+        transition-property: width, min-width, padding, opacity;
+    }
+
+
+    .content_tr_group {
+        border-bottom: 1px solid #f2f2f2 !important;
+        height: 41px;
+    }
+
+    .ReactTable .rt-tbody .rt-td:last-child {
+        border-right: 0;
+    }
+
+    .ReactTable .rt-tr-group {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .float_l {
+        float: left !important;
+    }
+
+    .progress_bar {
+        position: relative;
+    }
+
+    .ml20 {
+        margin-left: 14px !important;
+    }
+
+    .float_r {
+        float: right !important;
+    }
+
+
+    .btn-group-vertical>.btn,
+    .btn-group>.btn {
+
+        border-color: #6c757d !important;
+    }
+</style>

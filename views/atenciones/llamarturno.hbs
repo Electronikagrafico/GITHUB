@@ -1,0 +1,893 @@
+<script>
+
+
+    function llamar() {
+
+
+        const llamar_txt = document.querySelector("#llamar_txt");
+        const btn_llamar = document.querySelector("#llamar_btn");
+
+        if (llamar_txt.textContent == "LLamar Turno") {
+
+            this.document.getElementById("llamar_txt").innerHTML = "Llamando...";
+            document.getElementById("btn_Llamar").id = "btn_Llamar_active";
+            document.getElementById("llamar_btn").id = "llamar_btn_llamando";
+            document.getElementById("opciones_atencion").id = "opciones_atencion_visible";
+            document.getElementById("opciones_atencion_2").id = "opciones_atencion_visible";
+            document.getElementById("opciones_atencion_3").id = "opciones_atencion_visible";
+            document.getElementById("opciones_atencion_4").id = "opciones_atencion_visible";
+            document.getElementById("panel_info_usuario").id = "panel_info_usuario_activo";
+
+
+
+        }
+
+    }
+
+
+    function Iniciar() {
+
+        var Texto_btnIni = this.document.getElementById("EnAtencion_txt").innerHTML;
+
+        switch (Texto_btnIni) {
+
+            case "Iniciar Turno":
+                pausar();
+                document.getElementById("btn_Llamar_active").id = "btn_Llamar_disabled";
+                document.getElementById("llamar_btn_llamando").id = "llamar_btn_disabled";
+                document.getElementById("btn_Iniciar").id = "btn_Iniciar_active";
+                document.getElementsByClassName("ausente")[0].className += " esconder";
+
+                this.document.getElementById("EnAtencion_txt").innerHTML = "Finalizar turno";
+
+
+                break;
+
+            case "Finalizar turno":
+
+                document.getElementById("btn_Llamar_disabled").id = "btn_Llamar_active";
+                document.getElementById("llamar_btn_disabled").id = "llamar_btn_llamando";
+                document.getElementById("btn_Iniciar_active").id = "btn_Iniciar";
+                this.document.getElementById("EnAtencion_txt").innerHTML = "Iniciar Turno";
+
+
+                break;
+
+
+        }
+
+
+    }
+
+    function Esconder() {
+
+
+        var Texto_btnIni = this.document.getElementById("EnAtencion_txt").innerHTML;
+
+        const llamar_txt = document.querySelector("#llamar_txt");
+        const btn_llamar = document.querySelector("#llamar_btn");
+
+        switch (Texto_btnIni) {
+
+            case "Iniciar Turno":
+
+                // document.getElementById("llamar_btn_disabled").id = "btn_Llamar";
+                this.document.getElementById("llamar_txt").innerHTML = "LLamar Turno";
+                document.getElementById("panel_info_usuario_activo").id = "panel_info_usuario";
+                document.getElementById("btn_Llamar_active").id = "btn_Llamar";
+                document.getElementById("llamar_btn_llamando").id = "llamar_btn";
+                document.getElementById("opciones_atencion_visible").id = "opciones_atencion";
+                document.getElementById("opciones_atencion_visible").id = "opciones_atencion_2";
+                document.getElementById("opciones_atencion_visible").id = "opciones_atencion_3";
+                document.getElementById("opciones_atencion_visible").id = "opciones_atencion_4";
+
+                break;
+
+            case "Finalizar turno":
+
+                //document.getElementById("llamar_btn_disabled").id = "btn_Llamar";
+                this.document.getElementById("llamar_txt").innerHTML = "LLamar Turno";
+                document.getElementById("panel_info_usuario_activo").id = "panel_info_usuario";
+                document.getElementById("llamar_btn_disabled").id = "llamar_btn";
+                document.getElementById("btn_Llamar_disabled").id = "btn_Llamar";
+                document.getElementById("opciones_atencion_visible").id = "opciones_atencion";
+                document.getElementById("opciones_atencion_visible").id = "opciones_atencion_2";
+                document.getElementById("opciones_atencion_visible").id = "opciones_atencion_3";
+                document.getElementById("opciones_atencion_visible").id = "opciones_atencion_4";
+                document.getElementById("btn_Iniciar_active").id = "btn_Iniciar";
+                this.document.getElementById("EnAtencion_txt").innerHTML = "Iniciar Turno";
+                restablercer_tiempo();
+
+
+
+                break;
+
+
+        }
+
+
+    }
+
+
+
+</script>
+
+
+<script src="../assets/js/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../assets/js/sweetalert/scriptSweetAlert2.js"></script>
+
+
+
+<style>
+    #panel_info_usuario {
+        display: none;
+
+    }
+
+    #panel_info_usuario_activo {
+
+        -webkit-animation: slide-in-bck-center 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s both;
+        animation: slide-in-bck-center 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s both;
+    }
+
+    .scale-in-center {}
+
+
+    @-webkit-keyframes scale-in-center {
+        0% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scale-in-center {
+        0% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+
+
+    @-webkit-keyframes slide-in-bck-center {
+        0% {
+            -webkit-transform: translateZ(600px);
+            transform: translateZ(600px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-in-bck-center {
+        0% {
+            -webkit-transform: translateZ(600px);
+            transform: translateZ(600px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes slide-in-blurred-top {
+        0% {
+            -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-in-blurred-top {
+        0% {
+            -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+
+
+    #btn_Llamar {
+        width: 70%;
+        height: 150px;
+        margin: 0 auto;
+        background: url(../assets/images/llamado.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
+
+    #btn_Llamar_iniciado {
+        width: 70%;
+        height: 150px;
+        margin: 0 auto;
+        background: url(../assets/images/llamado.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        filter: grayscale(100%);
+        -webkit-animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+        animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    }
+
+    #btn_Iniciar {
+        width: 70%;
+        height: 150px;
+        margin: 0 auto;
+        background: url(../assets/images/Iniciar_atencion.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
+
+    #btn_Iniciar_active {
+        width: 70%;
+        height: 150px;
+        margin: 0 auto;
+        background: url(../assets/images/Detener_turno.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
+
+    #btn_Llamar_active {
+        width: 70%;
+        height: 150px;
+        margin: 0 auto;
+        background: url(../assets/images/notifications_active_2.gif);
+
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        -webkit-animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+        animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+
+    }
+
+    #btn_Llamar_disabled {
+        filter: grayscale(100%) width: 70%;
+        height: 150px;
+        margin: 0 auto;
+        background: url(../assets/images/llamado.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        -webkit-animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+        animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+
+    }
+
+    #llamar_btn_disabled {
+        background-color: white;
+
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0);
+        filter: grayscale(105%);
+
+    }
+
+
+    #llamar_btn_llamando {
+        background-color: white;
+        border-color: #0070d2;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+
+    }
+
+    #opciones_atencion {
+
+        visibility: hidden;
+        display: none;
+    }
+
+
+    #opciones_atencion {
+
+        visibility: hidden;
+        display: none;
+    }
+
+
+
+    #opciones_atencion_2 {
+
+        visibility: hidden;
+        display: none;
+    }
+
+    #opciones_atencion_3 {
+
+        visibility: hidden;
+        display: none;
+    }
+
+
+    #opciones_atencion_4 {
+
+        visibility: hidden;
+        display: none;
+    }
+
+    #opciones_atencion_visible {
+
+        visibility: visible;
+        -webkit-animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+        animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    }
+
+    @-webkit-keyframes slide-in-blurred-top {
+        0% {
+            -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-in-blurred-top {
+        0% {
+            -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+
+
+    #llamar_txt a {
+
+        animation: heartbeat 1.5s ease-in-out infinite both
+    }
+
+
+    .mdi {
+        font-size: 3rem;
+    }
+
+    #tiempoTranscurrido {
+        font-size: 1.6rem;
+        font-family: "Open Sans", sans-serif;
+        color: #008fd5;
+        font-weight: lighter;
+    }
+
+
+    #tiempoTranscurrido_2 {
+        font-size: 1.6rem;
+        font-family: "Open Sans", sans-serif;
+        color: #008fd5;
+        font-weight: lighter;
+    }
+
+
+    .bounce-in-bottom {
+        -webkit-animation: bounce-in-bottom 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) both;
+        animation: bounce-in-bottom 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) both;
+    }
+
+    @-webkit-keyframes bounce-in-top {
+        0% {
+            -webkit-transform: translateY(-500px);
+            transform: translateY(-500px);
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+            opacity: 0;
+        }
+
+        38% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+            opacity: 1;
+        }
+
+        55% {
+            -webkit-transform: translateY(-65px);
+            transform: translateY(-65px);
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+        }
+
+        72% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+        }
+
+        81% {
+            -webkit-transform: translateY(-28px);
+            transform: translateY(-28px);
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+        }
+
+        90% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+        }
+
+        95% {
+            -webkit-transform: translateY(-8px);
+            transform: translateY(-8px);
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+        }
+
+        100% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+        }
+    }
+
+    @keyframes bounce-in-top {
+        0% {
+            -webkit-transform: translateY(-500px);
+            transform: translateY(-500px);
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+            opacity: 0;
+        }
+
+        38% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+            opacity: 1;
+        }
+
+        55% {
+            -webkit-transform: translateY(-65px);
+            transform: translateY(-65px);
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+        }
+
+        72% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+        }
+
+        81% {
+            -webkit-transform: translateY(-28px);
+            transform: translateY(-28px);
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+        }
+
+        90% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+        }
+
+        95% {
+            -webkit-transform: translateY(-8px);
+            transform: translateY(-8px);
+            -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+        }
+
+        100% {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+        }
+    }
+
+
+
+
+
+    @-webkit-keyframes slide-in-bck-center {
+        0% {
+            transform: translateZ(600px);
+            opacity: 0
+        }
+
+        100% {
+            transform: translateZ(0);
+            opacity: 1
+        }
+    }
+
+
+    @-webkit-keyframes jello-horizontal {
+
+
+
+        0% {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+
+        30% {
+            -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+        }
+
+        40% {
+            -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+        }
+
+        50% {
+            -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+        }
+
+        65% {
+            -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1);
+        }
+
+        75% {
+            -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1);
+        }
+
+        100% {
+            animation: pulse 1s;
+            box-shadow: 0 0 0 2em rgba(255, 255, 255, 0);
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+            -webkit-animation: pulse 1s;
+
+
+        }
+    }
+
+    .esconder {
+        -webkit-animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+
+    }
+
+    .scale-out-center {
+        -webkit-animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    }
+
+    @-webkit-keyframes scale-out-center {
+        0% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scale-out-center {
+        0% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            opacity: 1;
+        }
+    }
+</style>
+
+
+
+<div class="container-fluid" id="panel_info_usuario" style="padding-top: 20px;background-color: aliceblue;">
+    <div>
+        <div class="body text-center" style="width: 20%;float: left;">
+            <div class="profile-image mb-3"><img src="../assets/images/Mujer_140.jpg" class="rounded-circle" alt="">
+            </div>
+        </div>
+
+        <div class="tab-content mt-3">
+            <div role="tabpanel" class="tab-pane in active" id="details" aria-expanded="true">
+                <div class="row clearfix">
+                    <div class="col-md-6 col-sm-6">
+                        <address>
+                            <div>
+                                <h1 style="font-size: 27px;"><strong>Atendiedo a: </strong> Luz Angelica Lozano Gonzales
+                                </h1>
+                                <h1 style="font-size: 27px;"><strong>Turno: </strong> BR-234<br></h1>
+                            </div>
+                            <strong>Servicio: </strong> consultas<br>
+
+                            <strong>Estado: </strong> <text>Llamando</text><br>
+                            <strong>Programado a: </strong> 2022-16-03 7:55 am<br>
+
+                        </address>
+                    </div>
+
+                </div>
+
+                <hr>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container-fluid">
+
+
+
+    <div class="row clearfix">
+
+        <div class="col-lg-2 col-md-12">
+            <button id="llamar_btn" style="padding: 18px; height: 350px;" type="button"
+                class="btn btn-outline-primary card pricing">
+                <div class="pricing-plan" style="width: 100%;     padding-top: 17%;">
+                    <div id="btn_Llamar">
+                    </div>
+                    <a id="llamar_txt" style="font-size: 1.4rem;" class="pricing-header">LLamar Turno</a>
+                    <h2 id="tiempoTranscurrido"></h2>
+                    <script src="../assets/js/cronometro.js"></script>
+
+            </button>
+        </div>
+
+
+        <div id="opciones_atencion" class="col-lg-2 col-md-12">
+            <button id="iniciarTurno_btn" onclick="Iniciar()" style="padding: 18px; height: 350px;" type="button"
+                class="btn btn-outline-primary card pricing">
+                <div class="pricing-plan" style="width: 100%;     padding-top: 17%;">
+                    <div id="btn_Iniciar">
+                    </div>
+                    <a id="EnAtencion_txt" style="font-size: 1.4rem;" class="pricing-header">Iniciar Turno</a>
+                    <h2 id="tiempoTranscurrido_2"></h2>
+
+
+            </button>
+        </div>
+
+
+        <div style="display: contents;" class="js-sweetalert" data-type="posponer" style="">
+            <div id="opciones_atencion_2" class="col-lg-2 col-md-12 ausente">
+                <button style="padding: 18px; height: 350px;" type="button"
+                    class="btn btn-outline-primary card pricing">
+
+                    <div class="pricing-plan">
+                        <img style="width: 70%;" src="../assets/images/Posponer.png" alt="" class="pricing-img">
+                        <a style="font-size: 1.4rem;" class="pricing-header">Posponer</a>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+
+
+        <a style="" href="#">
+            <div id="opciones_atencion_3" class="col-lg-2 col-md-12">
+                <button onclick="redirigir()" style="padding: 18px; height: 350px;" type="button"
+                    class="btn btn-outline-primary card pricing">
+
+                    <div class="pricing-plan">
+                        <img style="width: 70%;" src="../assets/images/Redireccionar.png" alt="" class="pricing-img">
+                        <a style="font-size: 1.4rem;" class="pricing-header">Redireccionar</a>
+
+                    </div>
+                </button>
+            </div>
+        </a>
+        </a>
+        <div style="display: contents;" class="js-sweetalert" data-type="cancel" style="">
+            <div id="opciones_atencion_4" class="col-lg-2 col-md-12 ausente">
+                <button style="padding: 18px; height: 350px;" type="button"
+                    class="btn btn-outline-primary card pricing">
+                    <div class="pricing-plan">
+                        <img style="width: 70%;" src="../assets/images/cerrar.png" alt="" class="pricing-img">
+                        <a style="font-size: 1.4rem;" class="pricing-header">Ausente</a>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2 style="font-size: 20px;">Turnos pendientes</h2>
+            <ul class="header-dropdown dropdown dropdown-animated scale-left">
+                <li> <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="pulse"><i
+                            class="icon-refresh"></i></a></li>
+                <li><a href="javascript:void(0);" class="full-screen"><i class="icon-size-fullscreen"></i></a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0);">Action</a></li>
+                        <li><a href="javascript:void(0);">Another Action</a></li>
+                        <li><a href="javascript:void(0);">Something else</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="body">
+            <div class="table-responsive">
+                <table class="table table-hover js-basic-example dataTable table-custom mb-0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Nombre</th>
+                            <th>Turno</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Toma rayos X</td>
+                            <td>Andres Ramirez Gonzales</td>
+                            <td>RX-25</td>
+
+                            <td>
+                                <button class="btn btn-sm round btn-outline-success">Accept</button>
+                            </td>
+                        </tr>
+
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+</div>
+
+
+<script src="../assets/bundles/libscripts.bundle.js"></script>
+<script src="../assets/bundles/vendorscripts.bundle.js"></script>
+
+<script src="../assets/vendor/sweetalert/sweetalert.min.js"></script><!-- SweetAlert Plugin Js -->
+
+<script src="../assets/bundles/mainscripts.bundle.js"></script>
+<script src="../assets/js/pages/ui/dialogs.js"></script>
+
+<body class="container">
+
+    <script>
+        /*
+                const boton = document.getElementById("llamado"); boton.addEventListener("click", () => {
+                    llamado.style.color = "white"; boton.style.backgroundColor = "green";
+                }); */
+    </script>
+
+    <script src="../assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="../assets/bundles/libscripts.bundle.js"></script>
+
+    <script src="../assets/vendor/sweetalert/sweetalert.min.js"></script><!-- SweetAlert Plugin Js -->
+
+    <script src="../assets/bundles/mainscripts.bundle.js"></script>
+    <script src="../assets/js/pages/ui/dialogs.js"></script>
+
+
+
+</body>
+
+<div style="/*! visibility: hidden; */display: flex;">
+    <h1>Modulo</h1>
+    <h4>Atendiendo a <small id="turno">....</small></h4>
+
+    <button id="Btn_Atender" class="btn btn-primary">
+        Atender siguiente ticket
+    </button>
+    <button id="Btn_Inicio_Atencion" class="btn btn-primary">
+        Inciar Atención
+    </button>
+    <button class="btn btn-primary">
+        Posponer
+    </button>
+    <button class="btn btn-primary">
+        Redireccionar
+    </button>
+    <button class="btn btn-primary">
+        Ausente
+    </button>
+    <button class="btn btn-primary">
+        Imprimir
+    </button>
+</div>

@@ -1,0 +1,204 @@
+<script src="../assets/js/pages/ui/dialogs.js"></script>
+<script src="../assets/vendor/sweetalert/sweetalert.min.js"></script><!-- SweetAlert Plugin Js -->
+<script src="../assets/js/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../assets/js/sweetalert/scriptSweetAlert2.js"></script>
+
+<div class="container-fluid">
+
+    <div class="row clearfix">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="header">
+                    <h2>Tvpanels</h2>
+
+
+                    <ul class="header-dropdown dropdown dropdown-animated scale-left">
+
+                        <li> <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="pulse"><i
+                                    class="icon-refresh"></i></a></li>
+                        <li><a href="javascript:void(0);" class="full-screen"><i class="icon-size-fullscreen"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false"></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another Action</a></li>
+                                <li><a href="javascript:void(0);">Something else</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div style="margin-bottom: 10px;" ;class="dt-buttons"><a href=" /tvpanel/add"
+                            class="btn btn-sm btn-primary" title="">Crear tvpanel</a></div>
+                    <div class="table-responsive check-all-parent">
+                        <table class="table table-hover m-b-0 c_list">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <label class="fancy-checkbox">
+                                            <input class="check-all" type="checkbox" name="checkbox">
+                                            <span></span>
+                                        </label>
+                                    </th>
+                                    <th>Nombre</th>
+                                    <th>Dirección URL</th>
+                                    <th>Descripción</th>
+                                    <th>url</th>
+                                    <th>Accción</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+
+                                <div class="container-fluid">
+                                    <div class="row">
+
+                                        {{#each tv}}
+
+                                        <div class="col-lg-1 col-6 col-sm-4 col-md-3">
+                                            <div class="card top_counter">
+                                                <div class="body" style="background-color: #f2f2f2;">
+                                                    <div class="img-thumbnail Monitor_off">
+                                                        <img src="/../assets/images/tvpanelUI/Screen_off.png"
+                                                            alt="Image" class="img-fluid">
+                                                    </div>
+                                                </div>
+                                                <div class="content" style="padding: 10px;">
+                                                    <div class="text" style="font-size: 11px;">{{title}}</div>
+                                                    <h5 class="number" style="font-size: 11px;">{{description}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <tr>
+                                    <td style="width: 50px;">
+                                        <label class="fancy-checkbox">
+                                            <input class="checkbox-tick" type="checkbox" name="checkbox">
+                                            <span></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <img src="../assets/images/tvpanel/avatar2.jpg" class="rounded-circle avatar"
+                                            alt="">
+                                        <p class="c_name">{{title}}</a>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <span class="phone"><i class="zmdi zmdi-phone m-r-10"></i>264-625-2583</span>
+                                    </td>
+
+                                    <td>
+                                        <address><i class="zmdi zmdi-pin"></i>
+                                            {{description}}
+                                        </address>
+                                    </td>
+
+                                    <td>
+                                        <address><i class="zmdi zmdi-pin"></i>
+                                            {{url}}
+                                        </address>
+                                    </td>
+                                    <td>
+                                        <a href="/tvpanel/edit/{{_id}}"><button type="button" class="btn btn-info"
+                                                title="Edit"><i class="fa fa-edit"></i></button></a>
+                                        <form style="width: 10%;display: contents;"
+                                            action="/tvpanel/delete/{{_id}}?_method=DELETE" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button data-type="confirm" class="btn btn-danger js-sweetalert"
+                                                title="Delete" type="submit"><i class="fa fa-trash-o"></i></button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                    </div>
+
+                    {{else}}
+
+                    <div class="card mx-auto">
+                        <div class="card-body">
+                            <h1>Bienvenido </h1>
+                            <p class="lead">No hay tvpanel creados</p>
+
+                        </div>
+                    </div>
+
+                    {{/each}}
+
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+    <div class="row clearfix">
+
+
+
+
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-info"><i class="fa fa-facebook"></i> </div>
+                    <div class="content">
+                        <div class="text">Facebook</div>
+                        <h5 class="number">53,251</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-warning"><i class="fa fa-twitter"></i> </div>
+                    <div class="content">
+                        <div class="text">Twitter</div>
+                        <h5 class="number">62%</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-danger"><i class="fa fa-instagram"></i> </div>
+                    <div class="content">
+                        <div class="text">Instagram</div>
+                        <h5 class="number">$3205</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon"><i class="fa fa-linkedin"></i> </div>
+                    <div class="content">
+                        <div class="text">LinkedIn</div>
+                        <h5 class="number">3,217</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+</div>

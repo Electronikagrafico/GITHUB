@@ -1,0 +1,113 @@
+<div class="sidebar-scroll">
+    <div class="user-account">
+        <div class="user_div">
+            <img src="/../assets/images/Mujer.jpg" class="user-photo" alt="User Profile Picture">
+        </div>
+        <div class="dropdown">
+            <span>Bienvenid@,</span>
+            <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Christy
+                    Wert</strong></a>
+            <ul class="dropdown-menu dropdown-menu-right account">
+                <li><a href="page-profile.html"><i class="icon-user"></i>My Profile</a></li>
+                <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
+                <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
+                <li class="divider"></li>
+
+                <li class="dropdown dropdown-animated scale-left"><i class="icon-power"></i>Logout</li>
+            </ul>
+        </div>
+    </div>
+    <nav id="left-sidebar-nav" class="sidebar-nav .nav.navbar-nav ">
+        <ul id="main-menu" class="metismenu">
+
+            <li class="nav-item {{#if active_dash}}active{{/if}}"><a class="menu" href="/"><i
+                        class="icon-home"></i><span>Dashboard</span></a></li>
+
+            <li class="{{link_class for=" /atenciones/llamarturno" activeClass="active" }}"><a
+                    href="/atenciones/llamarturno"><i class="icon-bell"></i><span>Llamar Turnos</span></a></li>
+
+
+
+
+
+
+            <li class="{{link_class for=" /content" activeClass="active" }}"><a class="has-arrow group-link"
+                    href="/content"><i class=" icon-picture  "></i><span>Contenido</span></a>
+                <ul aria-expanded="false" class="collapse">
+                    <li class="{{link_class for=' /content' activeClass='active' }}">
+                        <a href="/content" class="has-arrow group-link" data-group="all">
+                            <i class="icon-folder-alt "></i>
+                            <span>Todos</span>
+                        </a>
+                    </li>
+                    {{#each carpetas}}
+                    <li class="{{link_class for=' /content' activeClass='active' }}">
+                        <a href="/content?group={{this._id}}" class="has-arrow group-link"
+                            data-group="{{this.groupName}}">
+                            <i class="icon-folder-alt "></i>
+                            <span>{{this.groupName}}</span>
+                        </a>
+
+                    </li>
+                    {{/each}}
+                    <a href="/content" class="has-arrow group-link" data-group="all">
+                        <i class="icon-plus"></i>
+                        <span>Añadir grupo</span>
+                    </a>
+
+
+                </ul>
+            </li>
+
+
+
+
+
+
+
+
+
+
+
+            <li class="{{link_class for=" /kiosco" activeClass="active" }}"><a href="/kiosco"><i
+                        class="fa fa-cubes"></i><span>kioscos</span></a></li>
+
+            <li class="{{link_class for=' /kiosco/index.html' activeClass='active' }}">
+                <a href="/tvpanel" class="has-arrow">
+                    <i class="icon-screen-desktop"></i>
+                    <span>Dispositivos</span>
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li class="{{link_class for=' /kiosco/index.html' activeClass='active' }}">
+                        <a href="/tvpanel" class="has-arrow group-link" data-group="all">
+                            <i class="icon-screen-desktop"></i>
+                            <span>Todos</span>
+                        </a>
+                    </li>
+                    {{#each groups}}
+                    <li class="{{link_class for=' /kiosco/index.html' activeClass='active' }}">
+                        <a href="/tvpanel?group={{this}}" class="has-arrow group-link" data-group="{{this}}">
+                            <i class="icon-screen-desktop"></i>
+                            <span>{{this}}</span>
+                        </a>
+
+                    </li>
+                    {{/each}}
+                    <a href="/tvpanel" class="has-arrow group-link" data-group="all">
+                        <i class="icon-plus"></i>
+                        <span>Añadir grupo</span>
+                    </a>
+
+
+                </ul>
+            </li>
+            <li class="{{link_class for=" /kiosco" activeClass="active" }}"><a href="/services"><i
+                        class="icon-grid "></i><span>Servicios Turno</span></a></li>
+
+            <li><a href="app-chat.html"><i class="icon-bubbles"></i><span>Chat</span></a></li>
+
+
+
+        </ul>
+    </nav>
+</div>

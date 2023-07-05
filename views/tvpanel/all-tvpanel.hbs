@@ -1,0 +1,374 @@
+<div class="row clearfix">
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="header" style="background-color: #e6ebf0;">
+                <h2>Dispositivos</h2>
+
+
+                <ul class="header-dropdown dropdown dropdown-animated scale-left">
+
+                    <li> <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="pulse"><i
+                                class="icon-refresh"></i></a></li>
+                    <li><a href="javascript:void(0);" class="full-screen"><i class="icon-size-fullscreen"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false"></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0);">Action</a></li>
+                            <li><a href="javascript:void(0);">Another Action</a></li>
+                            <li><a href="javascript:void(0);">Something else</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="body">
+
+                <div class="table-responsive check-all-parent">
+                    <div class="container-fluid">
+                        <div class="body" style="padding-bottom: 0px;">
+                            <div class="chat-header clearfix">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 hidden-sm text-left">
+
+
+
+                                        <button type="button" class="btn btn-outline-secondary" title="Edit"
+                                            onclick="editar()">
+                                            <i class="fa fa-edit"></i>Editar
+                                        </button>
+
+
+
+                                        <button class="btn btn-outline-secondary js-sweetalert"
+                                            data-type="eliminar_Dispositivo" title="Delete" type="button">
+                                            <i class="fa fa-trash-o"></i>Borrar
+                                        </button>
+
+
+                                        <a href=" /tvpanel/add"><button class="btn btn-outline-secondary"><i
+                                                    class="icon-plus"></i>
+                                                Añadir Dispositivo</button></a>
+
+
+
+                                        <select id="single-selection" name="single_selection"
+                                            class="multiselect multiselect-custom" style="display: none;">
+                                            <option value="all">Todos...</option>
+                                            {{#each groups}}
+                                            <option value="{{this}}">{{this}}</option>
+                                            {{/each}}
+                                        </select>
+
+
+                                    </div>
+
+                                    <div class="col-lg-6 hidden-sm text-left">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Buscar...">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="icon-magnifier"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <hr>
+
+
+                            <div class="row clearfix">
+                                {{#each tv}}
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-6 clickable-card_div "
+                                    data-group="{{group}}">
+                                    <div class="card top_counter clickable-card" data-id="{{_id}}">
+
+                                        <div class="body" style="background-color: #f2f2f2;">
+                                            <div>
+                                                <img src="/../assets/images/tvpanelUI/Screen_select.png" alt="Image"
+                                                    class="img-fluid screen_select">
+                                                <img src="/../assets/images/tvpanelUI/Screen_off.png" alt="Image"
+                                                    class="img-fluid offline">
+                                            </div>
+                                        </div>
+                                        <div class="content" style="padding: 10px;background-color: #ccc;">
+                                            <div>
+                                                <div style="float: left; width:60%;background-color: #ccc;">
+                                                    <div class="text" style="font-size: 11px;">{{title}}</div>
+                                                    <h5 class="number" style="font-size: 11px;">{{description}}</h5>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {{else}}
+                                <div class="card mx-auto">
+                                    <div class="card-body">
+                                        <h1>Bienvenido </h1>
+                                        <p class="lead">No hay tvpanel creados</p>
+                                    </div>
+                                </div>
+                                {{/each}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/../assets/vendor/jquery/jquery.js"></script>
+<style>
+    .screen_select {
+        display: none;
+    }
+
+    .highlight {
+        //background-color: #feb800;
+        box-shadow: 3px 3px 8px 4px rgba(0, 0, 0, 0.1);
+
+    }
+
+    .highlight .body {
+        background-color: #feb800 !important;
+        box-shadow: 3px 3px 8px 4px rgba(0, 0, 0, 0.1);
+        -webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+    .highlight .offline {
+        display: none;
+    }
+
+    .highlight .screen_select {
+        display: block;
+        -webkit-animation: slide-in-blurred-top 0.5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+        animation: slide-in-blurred-top 0.5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    }
+
+
+    .scale-in-center {
+        -webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+    .clickable-card {
+        background-color: #ccc;
+        cursor: pointer;
+    }
+
+    /**
+ * ----------------------------------------
+ * animation scale-in-center
+ * ----------------------------------------
+ */
+    @-webkit-keyframes scale-in-center {
+        0% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scale-in-center {
+        0% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /**
+ * ----------------------------------------
+ * animation slide-in-blurred-top
+ * ----------------------------------------
+ */
+    @-webkit-keyframes slide-in-blurred-top {
+        0% {
+            -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-in-blurred-top {
+        0% {
+            -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+
+    }
+
+
+    }
+</style>
+<script>
+    // Asegúrate de que el DOM está listo
+    var selectedIds = [];
+
+    $(document).ready(function () {
+        $('.clickable-card').on('click', function () {
+            $(this).toggleClass('highlight');
+
+            var id = $(this).data('id');
+
+            // Si el objeto está seleccionado, añade su ID al array
+            // Si se deselecciona, remueve su ID del array
+            if ($(this).hasClass('highlight')) {
+                selectedIds.push(id);
+            } else {
+                selectedIds = selectedIds.filter(function (value, index, arr) {
+                    return value != id;
+                });
+            }
+        });
+
+        //Filtro desde el input de buscar 
+        $(document).ready(function () {
+            $('.form-control').on('keyup', function () {
+                var value = $(this).val().toLowerCase();
+                $('.clickable-card_div').each(function () {
+                    if ($(this).find('.text').text().toLowerCase().indexOf(value) > -1) {
+                        $(this).css('display', 'block');
+                    } else {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+        $("#single-selection").multiselect({
+            onChange: function (option, checked) {
+                var selectedGroup = $(option).val();
+                console.log('Grupo seleccionado:', selectedGroup);
+                if (selectedGroup === 'all') {
+                    $('.clickable-card_div').show();
+                } else {
+                    $('.clickable-card_div').each(function () {
+                        var deviceGroup = $(this).data('group');
+                        console.log('Grupo del dispositivo:', deviceGroup);
+                        if (deviceGroup === selectedGroup) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    function eliminar() {
+        // Itera sobre los IDs de los objetos seleccionados y los elimina uno a uno
+        selectedIds.forEach(function (id) {
+            $.ajax({
+                url: '/tvpanel/delete/' + id,
+                type: 'DELETE',
+                data: {
+                    _method: 'DELETE'
+                },
+                success: function (response) {
+                    // Actualiza el array de IDs para reflejar la eliminación
+                    selectedIds = selectedIds.filter(function (value, index, arr) {
+                        return value != id;
+                    });
+
+                    // Recarga la página si todos los objetos han sido eliminados
+                    if (selectedIds.length == 0) {
+                        setTimeout(function () {
+
+                        }, 500);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+            });
+        });
+    };
+
+    function editar() {
+        // Verifica si hay más de un objeto seleccionado
+        if (selectedIds.length > 1) {
+            alert('Por favor, solo seleccione uno para editar.');
+        } else if (selectedIds.length === 1) {
+            // Redirige a la página de edición para el objeto seleccionado
+            window.location.href = '/tvpanel/edit/' + selectedIds[0];
+        } else {
+            alert('Por favor, seleccione un objeto para editar.');
+        }
+    }
+
+
+
+
+</script>
+<script src="../assets/vendor/sweetalert/sweetalert.min.js"></script><!-- SweetAlert Plugin Js -->
+<script src="../assets/js/pages/ui/dialogs.js"></script>
+
+<script src="assets/bundles/libscripts.bundle.js"></script>
+<script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script><!-- Multi Select Plugin Js -->
+
+<script src="../assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+
+
+
+
+
+<style>
+    .btn-group-vertical>.btn,
+    .btn-group>.btn {
+
+        border-color: #6c757d !important;
+    }
+</style>
